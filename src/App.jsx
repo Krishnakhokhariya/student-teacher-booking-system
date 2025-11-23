@@ -1,9 +1,11 @@
+import { db } from "./firebase/firebaseConfig";
+
 function App() {
+  console.log("Firebase connected:", db);
+
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "sans-serif" }}>
-      <h1>Student-Teacher Appointment System</h1>
-      <p>Phase 1: Setup & Architecture</p>
-      <p>Coming soon: Admin, Teacher, Student modules.</p>
+    <div style={{ padding: "20px" }}>
+      <h1>Firebase Connected Successfully</h1>
     </div>
   );
 }
