@@ -1,7 +1,15 @@
 import React from 'react'
 
-function Modal({ isOpen, title, children, onClose, primaryLabel = "OK" }) {
+function Modal({ isOpen, title, children, onClose, primaryLabel = "OK", onPrimaryClick }) {
   if (!isOpen) return null;
+
+  function handlePrimary(){
+    if(onPrimaryClick){
+      onPrimaryClick();
+    } else{
+      onClose();
+    }
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
@@ -13,7 +21,7 @@ function Modal({ isOpen, title, children, onClose, primaryLabel = "OK" }) {
             onClick={onClose}
             className="text-slate-400 hover:text-slate-600 text-xl leading-none"
           >
-            ×
+            X
           </button>
         </div>
 
@@ -30,7 +38,7 @@ function Modal({ isOpen, title, children, onClose, primaryLabel = "OK" }) {
           </button>
 
           <button
-            onClick={onClose}
+            onClick={handlePrimary}
             className="px-4 py-1.5 text-sm rounded-full bg-gray-800 text-white hover:bg-gray-900"
           >
             {primaryLabel}

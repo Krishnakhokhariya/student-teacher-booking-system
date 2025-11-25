@@ -9,7 +9,7 @@ export default function AdminLayout({ children }) {
     <div className="flex min-h-screen bg-gray-100">
 
       
-      <div className="hidden md:block w-64 bg-white border-r shadow-sm fixed inset-y-0">
+      <div className="hidden md:block w-64 bg-white border-r shadow  fixed inset-y-0">
         <AdminSidebar />
       </div>
 
