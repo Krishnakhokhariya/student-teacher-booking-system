@@ -10,6 +10,9 @@ function StudentRoutes({children}) {
     if(!userProfile || userProfile.role !== 'student'){
         return <Navigate to="/login" replace />
     }
+     if (userProfile.status !== "approved") {
+    return <Navigate to="/login" replace />;
+  }
   return children
 }
 

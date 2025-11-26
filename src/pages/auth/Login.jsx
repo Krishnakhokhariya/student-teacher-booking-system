@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/Modal";
@@ -14,13 +14,15 @@ export default function Login() {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Keep login page accessible to all users regardless of current session.
+
   async function handleSubmit(e) {
     e.preventDefault();
     setErrorMessage("");
 
     try {
-      const user = await login(email, password);
-      const snap = await getDoc(doc(db, "users", user.user.uid));
+      const loggedIn = await login(email, password);
+      const snap = await getDoc(doc(db, "users", loggedIn.user.uid));
 
       if (!snap.exists()) {
         setErrorMessage("User Profile not found.");

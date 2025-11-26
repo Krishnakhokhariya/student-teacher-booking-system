@@ -26,6 +26,7 @@ function App() {
     <Routes>
       {/* auth */}
       <Route path="/" element={<Navigate to="/login" replace />} />
+      {/* public */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 

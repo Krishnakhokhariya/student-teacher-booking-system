@@ -20,6 +20,9 @@ function ApproveStudents() {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [actionType, setActionType] = useState("approved");
 
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
   useEffect(() => {
     loadPending();
   }, []);
@@ -31,9 +34,15 @@ function ApproveStudents() {
       setStudents(list);
     } catch (err) {
       console.error("Failed to load studnets", err);
+      showAlert("Failed to load pending students.");
     } finally {
       setLoading(false);
     }
+  }
+
+  function showAlert(msg){
+    setAlertMessage(msg);
+    setAlertOpen(true);
   }
 
   function openApprove(student) {
@@ -54,9 +63,10 @@ function ApproveStudents() {
     try {
       await approveStudent(student, userProfile.uid);
       setStudents((prev) => prev.filter((s) => s.uid !== student.uid));
+      showAlert(`Student "${student.name}" has been approved. `);
     } catch (err) {
       console.error(err);
-      alert(`Failed to approve student: ${err.message || err}`);
+      showAlert(`Failed to approve student: ${err.message || err}`);
     } finally {
       setConfirmOpen(false);
       setSelectedStudent(null);
@@ -69,6 +79,7 @@ function ApproveStudents() {
     try {
       await rejectStudent(student, userProfile.uid);
       setStudents((prev) => prev.filter((s) => s.uid !== student.uid));
+       showAlert(`Student "${student.name}" has been approved. `);
     } catch (err) {
       console.error(err);
       alert(`Failed to reject student: ${err.message || err}`);
@@ -190,6 +201,16 @@ function ApproveStudents() {
             {selectedStudent?.email}).
           </p>
         </div>
+      </Modal>
+
+      <Modal
+        isOpen={alertOpen}
+        title="Notification"
+        primaryLabel="OK"
+        onPrimaryClick={() => setAlertOpen(false)}
+        onClose={() => setAlertOpen(false)}
+      >
+        <p className="text-gray-700">{alertMessage}</p>
       </Modal>
     </AdminLayout>
   );

@@ -80,6 +80,10 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   };
 
+  const clearAuthState = () =>{
+    setUserProfile(null);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -89,6 +93,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         registerStudent,
+        clearAuthState,
       }}
     >
        {loading ? (
