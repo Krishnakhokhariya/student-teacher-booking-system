@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // Routes
 import AdminRoutes from "./routes/AdminRoutes";
@@ -23,6 +23,10 @@ function App() {
   return (
     <Routes>
       {/* auth */}
+      {/* default */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
+        {/* fallback to login for unknown paths */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 

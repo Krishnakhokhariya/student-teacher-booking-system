@@ -6,15 +6,15 @@ export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-50">
 
       
-      <div className="hidden md:block w-64 bg-white border-r shadow  fixed inset-y-0">
+       <aside className="hidden md:block w-64 bg-white border-r shadow fixed inset-y-0">
         <AdminSidebar />
-      </div>
+      </aside>
 
       {sidebarOpen && (
-        <div className="md:hidden fixed inset-0 z-40"
+        <div className="md:hidden fixed inset-0 z-40 bg-black/30"
              onClick={() => setSidebarOpen(false)}>
           <div className="w-64 bg-white h-full shadow-lg"
                onClick={(e) => e.stopPropagation()}>

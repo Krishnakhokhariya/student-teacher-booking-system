@@ -10,8 +10,6 @@ export default function TeacherForm({
   setName,
   email,
   setEmail,
-  password,
-  setPassword,
   department,
   setDepartment,
   subject,
@@ -45,17 +43,6 @@ export default function TeacherForm({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="teacher@example.com"
-            disabled={isEdit}
-          />
-        </div>
-         <div>
-          <label className="block text-sm text-slate-600">Password</label>
-          <input
-            type="password"
-            className="w-full border rounded-lg px-3 py-2 text-sm"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="At least 6 character"
             disabled={isEdit}
           />
         </div>

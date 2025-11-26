@@ -18,3 +18,6 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Export the firebaseConfig too — helper for creating secondary apps
+export { firebaseConfig };

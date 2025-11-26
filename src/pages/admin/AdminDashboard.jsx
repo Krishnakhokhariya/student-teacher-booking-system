@@ -11,11 +11,20 @@ export default function AdminDashboard() {
         <StatCard title="Total Teachers" value="0" color="bg-blue-600" />
         <StatCard title="Pending Studnets" value="0" color="bg-yellow-500" />
         <StatCard title="Total Students" value="0" color="bg-green-600" />
+         <StatCard title="Total Teachers" value="0" color="bg-blue-600" />
+        <StatCard title="Pending Studnets" value="0" color="bg-yellow-500" />
+        <StatCard title="Total Students" value="0" color="bg-green-600" />
       </div>
 
       <div className="bg-white p-5 rounded-xl shadow-md border">
         <h2 className="text-lg font-semibold mb-3">Recent Activity</h2>
         <p className="text-gray-500 text-sm">Logs</p>
+         <StatCard title="Total Teachers" value="0" color="bg-blue-600" />
+        <StatCard title="Pending Studnets" value="0" color="bg-yellow-500" />
+        <StatCard title="Total Students" value="0" color="bg-green-600" />
+         <StatCard title="Total Teachers" value="0" color="bg-blue-600" />
+        <StatCard title="Pending Studnets" value="0" color="bg-yellow-500" />
+        <StatCard title="Total Students" value="0" color="bg-green-600" />
       </div>
     </AdminLayout>
   );
