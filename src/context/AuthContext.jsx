@@ -91,7 +91,13 @@ export function AuthProvider({ children }) {
         registerStudent,
       }}
     >
-      {!loading && children}
+       {loading ? (
+      <div className="h-screen flex items-center justify-center text-gray-600">
+        Loading...
+      </div>
+    ) : (
+      children
+    )}
     </AuthContext.Provider>
   );
 }

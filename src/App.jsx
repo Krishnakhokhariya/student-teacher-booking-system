@@ -12,6 +12,8 @@ import Register from "./pages/auth/Register";
 // admin
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageTeacher from "./pages/admin/teachers/ManageTeacher";
+import ApproveStudents from "./pages/admin/students/ApproveStudents";
+
 
 //teacher
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
@@ -23,10 +25,7 @@ function App() {
   return (
     <Routes>
       {/* auth */}
-      {/* default */}
       <Route path="/" element={<Navigate to="/login" replace />} />
-        {/* fallback to login for unknown paths */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
@@ -47,6 +46,16 @@ function App() {
           <ProtectedRoutes>
             <AdminRoutes>
               <ManageTeacher />
+            </AdminRoutes>
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/admin/approve-students"
+        element={
+          <ProtectedRoutes>
+            <AdminRoutes>
+              <ApproveStudents />
             </AdminRoutes>
           </ProtectedRoutes>
         }
@@ -76,6 +85,10 @@ function App() {
           </ProtectedRoutes>
         }
       />
+
+
+       {/* default fallback*/}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
     
   );

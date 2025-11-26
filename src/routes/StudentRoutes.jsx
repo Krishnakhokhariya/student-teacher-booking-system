@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
-import { Children } from "react";
+
 
 function StudentRoutes({children}) {
     const {userProfile, loading} = useAuth();
