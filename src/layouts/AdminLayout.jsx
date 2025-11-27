@@ -9,7 +9,7 @@ export default function AdminLayout({ children }) {
     <div className="flex min-h-screen bg-gray-50">
 
       
-       <aside className="hidden md:block w-64 bg-white border-r shadow fixed inset-y-0">
+       <aside className="hidden md:block w-60 bg-white border-r shadow fixed inset-y-0">
         <AdminSidebar />
       </aside>
 
@@ -23,12 +23,12 @@ export default function AdminLayout({ children }) {
         </div>
       )}
 
-      <div className="flex-1 md:ml-64 flex flex-col">
+      <div className="flex-1 md:ml-60 flex flex-col overflow-hidden">
 
         <AdminNavbar openSidebar={() => setSidebarOpen(true)} />
 
-        <main className="flex-1 p-4 md:p-6">
-          {children}
+        <main className="flex-1 p-4 md:p-6 overflow-y-auto overflow-x-hidden w-full">
+         <div className="min-h-full">{children}</div>
         </main>
 
        <footer className="bg-white text-center py-3 text-sm border-t">

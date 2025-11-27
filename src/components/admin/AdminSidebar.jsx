@@ -9,6 +9,7 @@ export default function AdminSidebar() {
         <a href="/admin/dashboard" className="block text-gray-700 p-2 rounded hover:text-white hover:bg-gray-900">Dashboard</a>
         <a href="/admin/teachers" className="block text-gray-700 p-2 rounded hover:text-white hover:bg-gray-900">Manage Teachers</a>
         <a href="/admin/approve-students" className="block text-gray-700 p-2 rounded hover:text-white hover:bg-gray-900">Approve Students</a>
+        <a href="/admin/logs" className="block text-gray-700 p-2 rounded hover:text-white hover:bg-gray-900">View Logs</a>
       </nav>
     </div>
   );

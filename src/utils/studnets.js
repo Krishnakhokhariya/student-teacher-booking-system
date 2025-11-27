@@ -51,30 +51,34 @@ async function notifyStudent({ toUserId, toName, type, message }) {
 
 export async function approveStudent(student, adminId) {
   const userRef = doc(db, "users", student.uid);
-
+  const wasRejected = student.status === "rejected";
+  const isFirstTimeApproval = student.status === "pending";
   await setDoc(
     userRef,
     {
       status: "approved",
       approvedAt: serverTimestamp(),
       approvedBy: adminId,
+      previouslyRejected: wasRejected ? true : false
     },
     { merge: true }
   );
 
   await addLog({
-    action: "studnet_reg_approved",
-    message: `Approved studnet ${student.name} (${student.email})`,
+    action: wasRejected ? "student_reapproved" : "student_reg_approved",
+    message: wasRejected
+      ? `Re-approved previously rejected student: ${student.name} (${student.email})`
+      : `Approved new student: ${student.name} (${student.email})`,
     by: adminId,
+    studentId: student.uid
   });
 
-
   await sendStatusEmail({
-  toEmail: student.email,
-  toName: student.name,
-  subject: "Your Student Account Has Been Approved",
-  body: "Your account is now active. You can log in and book appointments.",
-});
+    toEmail: student.email,
+    toName: student.name,
+    subject: "Your Student Account Has Been Approved",
+    body: "Your account is now active. You can log in and book appointments.",
+  });
 }
 
 export async function rejectStudent(student, adminId) {
@@ -97,9 +101,25 @@ export async function rejectStudent(student, adminId) {
   });
 
   await sendStatusEmail({
-  toEmail: student.email,
-  toName: student.name,
-  subject: "Your Student Registration Was Rejected",
-  body: "Your registration was not approved.",
-});
+    toEmail: student.email,
+    toName: student.name,
+    subject: "Your Student Registration Was Rejected",
+    body: "Your registration was not approved.",
+  });
+}
+
+export async function getRejectedStudents() {
+  const usersRef = collection(db, "users");
+  const q = query(
+    usersRef,
+    where("role", "==", "student"),
+    where("status", "==", "rejected")
+  );
+
+  const snap = await getDocs(q);
+
+  return snap.docs.map((d) => ({
+    uid: d.id,
+    ...d.data(),
+  }));
 }

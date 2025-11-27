@@ -13,6 +13,7 @@ import Register from "./pages/auth/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageTeacher from "./pages/admin/teachers/ManageTeacher";
 import ApproveStudents from "./pages/admin/students/ApproveStudents";
+import Logs from "./pages/admin/Logs";
 
 
 //teacher
@@ -20,6 +21,7 @@ import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 
 //students
 import StudentDashboard from "./pages/student/StudentDashboard";
+
 
 function App() {
   return (
@@ -57,6 +59,16 @@ function App() {
           <ProtectedRoutes>
             <AdminRoutes>
               <ApproveStudents />
+            </AdminRoutes>
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/admin/logs"
+        element={
+          <ProtectedRoutes>
+            <AdminRoutes>
+              <Logs />
             </AdminRoutes>
           </ProtectedRoutes>
         }
