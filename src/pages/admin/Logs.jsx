@@ -11,7 +11,7 @@ export default function Logs() {
       const snap = await getDocs(collection(db, "logs"));
       const data = snap.docs
         .map((d) => d.data())
-        .sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds);
+        .sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
       setLogs(data);
     }
     load();

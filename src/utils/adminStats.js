@@ -43,8 +43,8 @@ export async function getRecentLogs(limitCount = 5){
     const allLogs = logSnap.docs
     .map((d) => d.data())
     .sort((a, b) => {
-      const timeA = a.timestamp?.seconds || 0;
-      const timeB = b.timestamp?.seconds || 0;
+      const timeA = a.createdAt?.seconds || 0;
+      const timeB = b.createdAt?.seconds || 0;
       return timeB - timeA;  
     });
 
