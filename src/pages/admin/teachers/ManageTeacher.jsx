@@ -161,7 +161,6 @@ function ManageTeacher() {
             key={t.uid}
             className="bg-white shadow-md rounded-lg p-4 border border-gray-200 hover:shadow-lg transition flex justify-between items-start"
           >
-            {/* LEFT SIDE INFO */}
             <div>
               <p className="text-lg font-semibold text-gray-900">{t.name}</p>
               <p className="text-gray-700 text-sm">{t.email}</p>

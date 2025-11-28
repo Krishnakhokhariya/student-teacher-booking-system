@@ -18,6 +18,7 @@ import Logs from "./pages/admin/Logs";
 
 //teacher
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import TeacherSchedule from "./pages/teacher/TeacherSchedule";
 
 //students
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -82,6 +83,16 @@ function App() {
           <ProtectedRoutes>
             <TeacherRoutes>
               <TeacherDashboard />
+            </TeacherRoutes>
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/teacher/schedule"
+        element={
+          <ProtectedRoutes>
+            <TeacherRoutes>
+              <TeacherSchedule />
             </TeacherRoutes>
           </ProtectedRoutes>
         }

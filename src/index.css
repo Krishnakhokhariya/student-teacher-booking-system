@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* @import "react-calendar/dist/Calendar.css"; */
+
 
 html, body, #root {
   height: 100%;
