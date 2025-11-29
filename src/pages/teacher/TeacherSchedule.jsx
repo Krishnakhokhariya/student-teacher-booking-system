@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TeacherLayout from "../../layouts/TeacherLayout";
+import { getFormattedAvailability } from "../../utils/availability";
 import {
   collection,
   addDoc,
@@ -17,7 +18,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-// Dropdown options
+
 const SLOT_OPTIONS = [
   "9AM - 10AM",
   "10AM - 11AM",
@@ -50,38 +51,40 @@ export default function TeacherSchedule() {
   }, []);
 
   async function loadAvailability() {
-    const ref = collection(db, "teachers", userProfile.uid, "availability");
-    const snap = await getDocs(ref);
+    // const ref = collection(db, "teachers", userProfile.uid, "availability");
+    // const snap = await getDocs(ref);
 
-    const raw = snap.docs.map((d) => ({
-      id: d.id,
-      ...d.data(),
-    }));
+    // const raw = snap.docs.map((d) => ({
+    //   id: d.id,
+    //   ...d.data(),
+    // }));
 
-    const grouped = raw.reduce((acc, item) => {
-      if (!acc[item.date]) acc[item.date] = [];
-      acc[item.date].push(item);
-      return acc;
-    }, {});
-    const formatted = Object.keys(grouped).map((date) => ({
-      date,
-      slots: grouped[date].sort(
-        (a, b) => parseSlot(a.slot) - parseSlot(b.slot)
-      ),
-    }));
+    // const grouped = raw.reduce((acc, item) => {
+    //   if (!acc[item.date]) acc[item.date] = [];
+    //   acc[item.date].push(item);
+    //   return acc;
+    // }, {});
+    // const formatted = Object.keys(grouped).map((date) => ({
+    //   date,
+    //   slots: grouped[date].sort(
+    //     (a, b) => parseSlot(a.slot) - parseSlot(b.slot)
+    //   ),
+    // }));
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // const today = new Date();
+    // today.setHours(0, 0, 0, 0);
 
-    formatted.sort((a, b) => {
-      const da = new Date(a.date);
-      const db = new Date(b.date);
+    // formatted.sort((a, b) => {
+    //   const da = new Date(a.date);
+    //   const db = new Date(b.date);
 
-      if (da >= today && db >= today) return da - db;
-      if (da >= today && db < today) return -1;
-      if (da < today && db >= today) return 1;
-      return da - bd;
-    });
+    //   if (da >= today && db >= today) return da - db;
+    //   if (da >= today && db < today) return -1;
+    //   if (da < today && db >= today) return 1;
+    //   return da - bd;
+    // });
+
+    const formatted = await getFormattedAvailability(userProfile.uid);
 
     setAvailability(formatted);
   }
@@ -129,12 +132,6 @@ export default function TeacherSchedule() {
     setAlertOpen(true);
   }
 
-  function formatDate(dateStr) {
-    if (!dateStr) return;
-    const [year, month, day] = dateStr.split("-");
-    return `${day}-${month}-${year}`;
-  }
-
   async function handleDelete() {
     if (deleteType === "date") {
       for (let s of targetDate.slots) {
@@ -154,19 +151,6 @@ export default function TeacherSchedule() {
     await loadAvailability();
   }
 
-  function parseSlot(slot) {
-    const raw = slot.split("-")[0].trim();
-
-    let hour = parseInt(raw);
-    const isPM = raw.toUpperCase().includes("PM");
-
-    if (hour === 12) {
-      hour = isPM ? 12 : 0;
-    } else if (isPM) {
-      hour += 12;
-    }
-    return hour;
-  }
 
   return (
     <TeacherLayout>
@@ -247,7 +231,7 @@ export default function TeacherSchedule() {
                     Date
                   </p>
                   <p className="font-semibold text-gray-800 text-lg">
-                    {formatDate(day.date)}
+                    {day.formattedDate}
                   </p>
                 </div>
 
@@ -259,7 +243,7 @@ export default function TeacherSchedule() {
               <div className="mt-4 flex flex-wrap gap-2">
                 {day.slots.map((slot) => (
                   <div
-                    key={slot.id}
+                    key={slot}
                     className="
                         flex items-center gap-1
                         bg-gray-100 border border-gray-300 
@@ -269,7 +253,7 @@ export default function TeacherSchedule() {
                         hover:bg-gray-200 transition"
                   >
                     <ClockIcon className="w-4 h-4" />
-                    <span>{slot.slot}</span>
+                    <span>{slot}</span>
 
                     <XMarkIcon
                       className="w-4 h-4 text-gray-500 hover:text-red-500"

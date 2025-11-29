@@ -8,12 +8,10 @@ export default function AppLayout({ children }) {
   return (
     <div className="flex min-h-screen bg-gray-50">
 
-      {/* Sidebar */}
       <aside className="hidden md:block w-60 bg-white border-r shadow fixed inset-y-0">
         <AppSidebar />
       </aside>
 
-      {/* Mobile Sidebar */}
       {sidebarOpen && (
         <div
           className="md:hidden fixed inset-0 z-40 bg-black/30"

@@ -114,3 +114,9 @@ export async function updateTeacher(uid, newData, adminId) {
     by: adminId,
   });
 }
+
+export async function searchTeacher(){
+  return await getTeachers();
+  // const all = await getTeachers();
+  // return all.filter((t) => t.role === "teacher" || !t.role ? true: true);
+}

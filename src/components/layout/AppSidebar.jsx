@@ -23,7 +23,8 @@ export default function AppSidebar() {
 
     student: [
       { label: "Dashboard", to: "/student/dashboard" },
-      { label: "Book Appointment", to: "/student/book" },
+      { label: "Search Teacher", to: "/student/search-teacher" },
+      { label: "Book Appointment", to: "/student/book-appointment" },
       { label: "My Appointments", to: "/student/appointments" },
     ],
   };
