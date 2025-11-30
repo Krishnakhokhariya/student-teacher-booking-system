@@ -173,7 +173,7 @@ function TeacherSearch() {
                 <span className="font-semibold">Email: </span>
                 {selectedTeacher.email || "-"}
               </p>
-              <div className="mt-4">
+              <div className="mt-5">
                 <p className="font-semibold mb-2">Availability</p>
 
                 {availability.length === 0 ? (
@@ -181,8 +181,11 @@ function TeacherSearch() {
                     No available slots.
                   </p>
                 ) : (
-                  availability.map((day) => (
-                    <div key={day.date} className="mb-3">
+                  availability.map((day, index) => (
+                    <div key={day.date} 
+                    className={`pb-3 mb-3 ${
+                      index !== availability.length - 1 ? "border-b border-slate-200" : ""
+                      }`}>
                       <p className="text-xs font-semibold text-slate-700 mb-1">
                         {day.formattedDate}
                       </p>
@@ -191,7 +194,7 @@ function TeacherSearch() {
                         {day.slots.map((slot) => (
                           <span
                             key={slot}
-                            className="px-2 py-1 bg-slate-100 border rounded-full text-xs"
+                            className="px-2 py-1 bg-slate-100 borfer-b rounded-full text-xs"
                           >
                             {slot}
                           </span>

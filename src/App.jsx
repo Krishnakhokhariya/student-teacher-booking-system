@@ -24,6 +24,7 @@ import TeacherSchedule from "./pages/teacher/TeacherSchedule";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import TeacherSearch from "./pages/student/TeacherSearch";
 import BookAppointment from "./pages/student/BookAppointment";
+import MyAppointments from "./pages/student/MyAppointments";
 
 
 function App() {
@@ -127,6 +128,16 @@ function App() {
           <ProtectedRoutes>
             <StudentRoutes>
               <BookAppointment />
+            </StudentRoutes>
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/student/my-appointments"
+        element={
+          <ProtectedRoutes>
+            <StudentRoutes>
+              <MyAppointments />
             </StudentRoutes>
           </ProtectedRoutes>
         }

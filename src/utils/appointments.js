@@ -42,9 +42,9 @@ export async function createAppointment({
 }
 
 export async function getAppoinmentsForStudnet(studnentUid){
-    const ref = collection(db, "appoinments");
+    const ref = collection(db, "appointments");
     const q = query(ref, 
-        where("studentUid", "===", studnentUid));
+        where("studentUid", "==", studnentUid));
         const snap = await getDocs(q);
 
         return snap.docs.map((d) => ({
