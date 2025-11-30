@@ -17,8 +17,17 @@ function MyAppointments() {
       try {
         const list = await getAppoinmentsForStudnet(userProfile.uid);
         list.sort((a, b) => {
+          const now = new Date();
+
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
+
+          const isPastA = dateA < now;
+          const isPastB = dateB < now;
+
+          if (isPastA !== isPastB) {
+            return isPastA ? 1 : -1;
+          }
 
           if (dateA.getTime() !== dateB.getTime()) {
             return dateA - dateB;

@@ -19,6 +19,7 @@ import Logs from "./pages/admin/Logs";
 //teacher
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherSchedule from "./pages/teacher/TeacherSchedule";
+import TeacherAppointments from "./pages/teacher/TeacherAppointments";
 
 //students
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -100,6 +101,17 @@ function App() {
           </ProtectedRoutes>
         }
       />
+      <Route
+        path="/teacher/appointments"
+        element={
+          <ProtectedRoutes>
+            <TeacherRoutes>
+              <TeacherAppointments />
+            </TeacherRoutes>
+          </ProtectedRoutes>
+        }
+      />
+
 
       {/* Student Routes */}
        <Route
