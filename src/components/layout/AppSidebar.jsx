@@ -1,9 +1,15 @@
 import { useAuth } from "../../context/AuthContext";
 import { usePendingStudentsCount } from "../../hooks/usePendingStudentsCount";
+import useUnreadMessageCount from "../../hooks/useUnreadMessageCount";
+import usePendingAppointmentsCount from "../../hooks/usePendingAppointmentsCount";
 
 export default function AppSidebar() {
   const { userProfile } = useAuth();
   const { pendingCount } = usePendingStudentsCount();
+  const { unreadCount } = useUnreadMessageCount(userProfile?.uid);
+  const {pendingCount: pendingAppointment} = usePendingAppointmentsCount(
+    userProfile?.uid
+  );
 
   const role = userProfile?.role;
 
@@ -18,7 +24,8 @@ export default function AppSidebar() {
     teacher: [
       { label: "Dashboard", to: "/teacher/dashboard" },
       { label: "My Schedule", to: "/teacher/schedule" },
-      { label: "Appointments", to: "/teacher/appointments" },
+      { label: "Appointments", to: "/teacher/appointments", badge: pendingAppointment },
+       { label: "Messages", to: "/teacher/messages", badge: unreadCount },
     ],
 
     student: [
@@ -26,6 +33,7 @@ export default function AppSidebar() {
       { label: "Search Teacher", to: "/student/search-teacher" },
       { label: "Book Appointment", to: "/student/book-appointment" },
       { label: "My Appointments", to: "/student/my-appointments" },
+       { label: "Messages", to: "/student/messages", badge: unreadCount },
     ],
   };
 
@@ -42,7 +50,19 @@ export default function AppSidebar() {
             href={item.to}
             className="block text-gray-700 p-2 rounded hover:text-white hover:bg-gray-900"
           >
-            {item.label}
+            <span>{item.label}</span>
+
+            {item.badge > 0 && (
+              <span
+                className="
+                  bg-red-500 text-white text-xs font-bold 
+                  py-0.5 px-1.5 rounded-full
+                  text-center
+                  ml-2"
+              >
+                {item.badge}
+              </span>
+            )}
           </a>
         ))}
       </nav>
