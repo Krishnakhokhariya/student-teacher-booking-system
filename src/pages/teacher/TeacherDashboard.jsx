@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AppLayout from "../../layouts/AppLayout";
+import TeacherLayout from "../../layouts/TeacherLayout";
 import { useAuth } from "../../context/AuthContext";
 import { getAppointmentsForTeacher } from "../../utils/teacherAppointment";
 import { getConversationPartners } from "../../utils/messages";
@@ -55,7 +55,7 @@ function TeacherDashboard() {
   const appointmentsDates = [...new Set(appointments.map((a) => a.date))];
 
   return (
-    <AppLayout>
+    <TeacherLayout>
       <div className="space-y-6">
         <h1 className="text-2xl font-semibold text-gray-800">
           Welcome, {userProfile?.name}
@@ -117,7 +117,7 @@ function TeacherDashboard() {
           availability={availability}
         />
       </div>
-    </AppLayout>
+    </TeacherLayout>
   );
 }
 
@@ -175,14 +175,12 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
         Calendar – {current.toLocaleString("default", { month: "long" })} {year}
       </h2>
 
-      {/* Week Header */}
       <div className="grid grid-cols-7 text-center text-sm font-medium text-gray-600">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
           <div key={d}>{d}</div>
         ))}
       </div>
 
-      {/* Calendar Days */}
       <div className="grid grid-cols-7 text-center">
         {Array(firstDay)
           .fill(null)
@@ -219,7 +217,6 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
                   {day}
                 </div>
 
-                {/* Tooltip */}
                 <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-56 left-1/2 -translate-x-1/2 mt-2 z-50 shadow-xl">
                   {apps.length > 0 ? (
                     <>
@@ -259,7 +256,6 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
           })}
       </div>
 
-      {/* Legend */}
       <div className="flex flex-wrap gap-3 text-sm mt-3">
         <Legend color="bg-blue-600" text="Today" />
         <Legend color="bg-green-200" text="Approved Appointment" />
