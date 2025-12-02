@@ -33,15 +33,20 @@ export function formatDate(dateStr) {
 
 function SortAvailability(rawList) {
   const grouped = rawList.reduce((acc, item) => {
-    if (!acc[item.date]) acc[item.date] = [];
-    acc[item.date].push(item.slot);
-    return acc;
-  }, {});
-  let formatted = Object.entries(grouped).map(([date, slots]) => ({
-    date,
-    formattedDate: formatDate(date),
-    slots: slots.sort((a, b) => parseSlot(a) - parseSlot(b)),
-  }));
+  if (!acc[item.date]) acc[item.date] = { slots: [], raw: [] };
+
+  acc[item.date].slots.push(item.slot); 
+  acc[item.date].raw.push(item);      
+
+  return acc;
+}, {});
+  let formatted = Object.entries(grouped).map(([date, data]) => ({
+  date,
+  formattedDate: formatDate(date),
+  slots: data.slots.sort((a, b) => parseSlot(a) - parseSlot(b)),
+  raw: data.raw, 
+}));
+
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -65,6 +70,7 @@ export async function getTeacherAvailability(teacherId) {
 
   return snap.docs.map((d) => ({
     id: d.id,
+    date: d.data().date || d.id,
     ...d.data(),
   }));
 }

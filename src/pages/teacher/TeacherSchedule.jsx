@@ -120,10 +120,11 @@ export default function TeacherSchedule() {
     setTargetDate(dateObj);
     setConfirmOpen(true);
   }
-  function confirmDeleteSlot(dateObj, slotObj) {
+  function confirmDeleteSlot(dateObj, slotString) {
+     const rawSlotObj = dateObj.raw.find(s => s.slot === slotString);
     setDeleteType("slot");
     setTargetDate(dateObj);
-    setTargetSlot(slotObj);
+    setTargetSlot(rawSlotObj);
     setConfirmOpen(true);
   }
 
@@ -133,24 +134,28 @@ export default function TeacherSchedule() {
   }
 
   async function handleDelete() {
-    if (deleteType === "date") {
-      for (let s of targetDate.slots) {
-        await deleteDoc(
-          doc(db, "teachers", userProfile.uid, "availability", s.id)
-        );
-      }
+  if (deleteType === "date") {
+    if (!targetDate?.raw) {
+      console.error("No raw documents found for this date");
+      return;
     }
 
-    if (deleteType === "slot") {
+    for (let docObj of targetDate.raw) {
       await deleteDoc(
-        doc(db, "teachers", userProfile.uid, "availability", targetSlot.id)
+        doc(db, "teachers", userProfile.uid, "availability", docObj.id)
       );
     }
-
-    setConfirmOpen(false);
-    await loadAvailability();
   }
 
+  if (deleteType === "slot") {
+    await deleteDoc(
+      doc(db, "teachers", userProfile.uid, "availability", targetSlot.id)
+    );
+  }
+
+  setConfirmOpen(false);
+  await loadAvailability();
+}
 
   return (
     <TeacherLayout>
