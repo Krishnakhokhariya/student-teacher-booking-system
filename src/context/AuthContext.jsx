@@ -7,6 +7,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { addNotifications } from "../utils/notifications";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -17,33 +19,33 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    try {
-      setFirebaseUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      try {
+        setFirebaseUser(user);
 
-      if (user) {
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        
-        if (docSnap.exists()) {
-          setUserProfile(docSnap.data());
+        if (user) {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            setUserProfile(docSnap.data());
+          } else {
+            setUserProfile(null);
+          }
         } else {
           setUserProfile(null);
         }
-      } else {
-        setUserProfile(null);
-      }
-    } catch (error) {
-      console.error("AUTH ERROR:", error);
-      
-      setUserProfile(null);
-    } finally {
-      setLoading(false);
-    }
-  });
+      } catch (error) {
+        console.error("AUTH ERROR:", error);
 
-  return unsubscribe;
-}, []);
+        setUserProfile(null);
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const registerStudent = async (
     name,
@@ -55,7 +57,7 @@ export function AuthProvider({ children }) {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
-      password,
+      password
     );
     const user = userCredential.user;
 
@@ -69,6 +71,21 @@ export function AuthProvider({ children }) {
       status: "pending",
       createdAt: new Date(),
     });
+
+    const adminSnap = await getDocs(
+      query(collection(db, "users"), where("role", "==", "admin"))
+    );
+
+    adminSnap.forEach((admin) => {
+      addNotifications({
+        toUid: admin.id,
+        toName: admin.data().name,
+        fromUid: user.uid,
+        fromName: name,
+        type: "student_registration",
+        message: `${name} has submitted a new student registration request.`,
+      });
+    });
     return user;
   };
 
@@ -80,9 +97,9 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   };
 
-  const clearAuthState = () =>{
+  const clearAuthState = () => {
     setUserProfile(null);
-  }
+  };
 
   return (
     <AuthContext.Provider
@@ -96,13 +113,13 @@ export function AuthProvider({ children }) {
         clearAuthState,
       }}
     >
-       {loading ? (
-      <div className="h-screen flex items-center justify-center text-gray-600">
-        Loading...
-      </div>
-    ) : (
-      children
-    )}
+      {loading ? (
+        <div className="h-screen flex items-center justify-center text-gray-600">
+          Loading...
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 }

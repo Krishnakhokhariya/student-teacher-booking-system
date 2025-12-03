@@ -25,7 +25,7 @@ export default function AppSidebar() {
       { label: "Dashboard", to: "/teacher/dashboard" },
       { label: "My Schedule", to: "/teacher/schedule" },
       { label: "Appointments", to: "/teacher/appointments", badge: pendingAppointment },
-       { label: "Messages", to: "/teacher/messages", badge: unreadCount },
+       { label: "Chats", to: "/teacher/messages", badge: unreadCount },
     ],
 
     student: [
@@ -33,7 +33,7 @@ export default function AppSidebar() {
       { label: "Search Teacher", to: "/student/search-teacher" },
       { label: "Book Appointment", to: "/student/book-appointment" },
       { label: "My Appointments", to: "/student/my-appointments" },
-       { label: "Messages", to: "/student/messages", badge: unreadCount },
+       { label: "Chats", to: "/student/messages", badge: unreadCount },
     ],
   };
 

@@ -8,6 +8,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { addLog } from "./logger";
+import { addNotifications } from "./notifications";
 
 export async function createAppointment({
   teacherUid,
@@ -29,6 +30,16 @@ export async function createAppointment({
     purpose,
     status: "pending",
     createdAt: serverTimestamp(),
+  });
+
+   await addNotifications({
+    toUid: teacherUid,
+    toName: teacherName,
+    fromUid: studentUid,
+    fromName: studentName,
+    type: "appointment_created",
+    roleTarget: "teacher",
+    message: `New appointment request from ${studentName} on ${date} (${slot}).`,
   });
 
    await addLog({

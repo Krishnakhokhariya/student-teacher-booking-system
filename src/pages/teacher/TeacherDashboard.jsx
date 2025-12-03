@@ -33,7 +33,6 @@ function TeacherDashboard() {
         timeZone: "Asia/Kolkata",
       }),
     }));
-    console.log("Normalized Availability:", normalizedAvailability);
 
     setAppointments(apps);
     setAvailability(normalizedAvailability);

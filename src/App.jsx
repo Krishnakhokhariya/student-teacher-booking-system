@@ -15,7 +15,6 @@ import ManageTeacher from "./pages/admin/teachers/ManageTeacher";
 import ApproveStudents from "./pages/admin/students/ApproveStudents";
 import Logs from "./pages/admin/Logs";
 
-
 //teacher
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherSchedule from "./pages/teacher/TeacherSchedule";
@@ -28,6 +27,7 @@ import BookAppointment from "./pages/student/BookAppointment";
 import MyAppointments from "./pages/student/MyAppointments";
 
 import Messages from "./pages/messages";
+import Notifications from "./pages/AllNotifications";
 
 function App() {
   return (
@@ -49,7 +49,7 @@ function App() {
           </ProtectedRoutes>
         }
       />
-       <Route
+      <Route
         path="/admin/teachers"
         element={
           <ProtectedRoutes>
@@ -80,9 +80,8 @@ function App() {
         }
       />
 
-
-        {/* Teacher Routes */}
-       <Route
+      {/* Teacher Routes */}
+      <Route
         path="/teacher/dashboard"
         element={
           <ProtectedRoutes>
@@ -123,9 +122,8 @@ function App() {
         }
       />
 
-
       {/* Student Routes */}
-       <Route
+      <Route
         path="/student/dashboard"
         element={
           <ProtectedRoutes>
@@ -166,7 +164,7 @@ function App() {
         }
       />
 
-       <Route
+      <Route
         path="/student/messages"
         element={
           <ProtectedRoutes>
@@ -177,11 +175,19 @@ function App() {
         }
       />
 
+      {/* Notification */}
+      <Route
+        path="/notifications"
+        element={
+          <ProtectedRoutes>
+            <Notifications />
+          </ProtectedRoutes>
+        }
+      />
 
-       {/* default fallback*/}
+      {/* default fallback*/}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
-    
   );
 }
 
