@@ -4,11 +4,10 @@ import { useAuth } from "../context/AuthContext";
 import Modal from "../components/Modal";
 import { db, auth } from "../firebase/firebaseConfig";
 import { updateDoc, doc } from "firebase/firestore";
-import { sendPasswordResetEmail } from "firebase/auth";
 import { addLog } from "../utils/logger";
 
 function Profile() {
-  const { userProfile } = useAuth();
+  const { userProfile, resetPassword } = useAuth();
 
   const [name, setName] = useState("");
   const [department, setDepartment] = useState("");
@@ -104,7 +103,7 @@ function Profile() {
     setErrorMsg("");
 
     try {
-      await sendPasswordResetEmail(auth, userProfile.email);
+      await resetPassword(userProfile.email);
 
       await addLog({
         action: "password_reset_requested",
@@ -129,54 +128,54 @@ function Profile() {
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900">
+            <h1 className="text-2xl font-semibold text-gray-900">
               My Profile
             </h1>
-            <p className="text-sm text-slate-600 mt-1">
+            <p className="text-sm text-gray-600 mt-1">
               View and update your account details
             </p>
           </div>
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
             Role: {role === "student" ? "Student" : "Teacher"}
           </span>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 sm:p-6">
           <form onSubmit={handleSave} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
                 Full Name
               </label>
               <input
                 type="text"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
                 Email Address
               </label>
               <input
                 type="email"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm bg-slate-50 text-slate-700 cursor-not-allowed"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700 cursor-not-allowed"
                 value={userProfile.email || ""}
                 disabled
               />
-              <p className="text-[11px] text-slate-500 mt-1">
+              <p className="text-[11px] text-gray-500 mt-1">
                 Email cannot be changed from here. Contact admin if it’s
                 incorrect.
               </p>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-1">
                 Department
               </label>
               <input
                 type="text"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 required
@@ -184,12 +183,12 @@ function Profile() {
             </div>
             {role === "student" && (
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-1">
                   Student ID
                 </label>
                 <input
                   type="text"
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none"
                   value={studentId}
                   onChange={(e) => setStudentId(e.target.value)}
                   required
@@ -198,12 +197,12 @@ function Profile() {
             )}
             {role === "teacher" && (
               <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-1">
                   Subject(s)
                 </label>
                 <input
                   type="text"
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-slate-800 focus:outline-none"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="e.g. Python, Data Structures"
@@ -216,7 +215,7 @@ function Profile() {
                 type="button"
                 onClick={handleResetPassword}
                 disabled={resetting}
-                className="inline-flex justify-center px-4 py-1.5 text-xs sm:text-sm rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 disabled:opacity-60"
+                className="inline-flex justify-center px-4 py-1.5 text-xs sm:text-sm rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 disabled:opacity-60"
               >
                 {resetting
                   ? "Sending reset link..."
@@ -244,7 +243,7 @@ function Profile() {
         onPrimaryClick={() => setSuccessOpen(false)}
         onClose={() => setSuccessOpen(false)}
       >
-        <p className="text-sm text-slate-700">{successMsg}</p>
+        <p className="text-sm text-gray-700">{successMsg}</p>
       </Modal>
 
       <Modal

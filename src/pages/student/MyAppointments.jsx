@@ -63,20 +63,20 @@ function MyAppointments() {
     <StudentLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-800">
+          <h1 className="text-2xl font-semibold text-gray-800">
             My Appointments
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-sm text-gray-600 mt-1">
             View Your upcoming and past appointment requests.
           </p>
         </div>
       </div>
       {loading ? (
-        <div className="bg-white rounded-xl p-6 shadow border text-center text-sm text-slate-500">
+        <div className="bg-white rounded-xl p-6 shadow border text-center text-sm text-gray-500">
           Loading Appointments...
         </div>
       ) : appointments.length === 0 ? (
-        <div className="bg-white rounded-xl p-6 shadow border text-center text-sm text-slate-500">
+        <div className="bg-white rounded-xl p-6 shadow border text-center text-sm text-gray-500">
           You have no appointments yet.{" "}
           <span className="font-medium">Start by searching for a teacher.</span>
         </div>
@@ -85,20 +85,20 @@ function MyAppointments() {
           {appointments.map((a) => (
             <div
               key={a.id}
-              className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+              className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
             >
               <div className="space-y-1 text-sm">
-                <div className="font-semibold text-slate-800">
+                <div className="font-semibold text-gray-800">
                   {a.teacherName || "Teacher"}
                 </div>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-gray-500">
                   Date:{" "}
                   <span className="font-medium">{formatDate(a.date)}</span>
                 </div>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-gray-500">
                   Time: <span className="font-medium">{a.slot}</span>
                 </div>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-gray-500">
                   Purpose: {a.purpose}
                 </div>
               </div>

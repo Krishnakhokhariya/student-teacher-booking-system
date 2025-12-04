@@ -116,10 +116,10 @@ function ApproveStudents() {
     <AdminLayout>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-800">
+          <h1 className="text-2xl font-semibold text-gray-800">
             Manage Student Registrations
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-sm text-gray-600 mt-1">
             Review new student registrations and manage approvals.
           </p>
         </div>
@@ -131,7 +131,7 @@ function ApproveStudents() {
           className={`pb-2 text-sm font-medium transition-all duration-200 ${
             activeTab === "pending"
               ? "border-b-2 border-blue-600 text-blue-700"
-              : "text-slate-500 hover:text-slate-700 hover:border-b-2 hover:border-slate-300"
+              : "text-gray-500 hover:text-gray-700 hover:border-b-2 hover:border-gray-300"
           }`}
         >
           Pending ({pendingStudents.length})
@@ -142,7 +142,7 @@ function ApproveStudents() {
           className={`pb-2 text-sm font-medium transition-all duration-200 ${
             activeTab === "rejected"
               ? "border-b-2 border-rose-600 text-rose-700"
-              : "text-slate-500 hover:text-slate-700 hover:border-b-2 hover:border-slate-300"
+              : "text-gray-500 hover:text-gray-700 hover:border-b-2 hover:border-gray-300"
           }`}
         >
           Rejected ({rejectedStudents.length})
@@ -152,7 +152,7 @@ function ApproveStudents() {
       {loading ? (
         <p>Loading students...</p>
       ) : currentList.length === 0 ? (
-        <div className="bg-white border border-dashed border-slate-300 rounded-xl p-6 text-center text-slate-500">
+        <div className="bg-white border border-dashed border-gray-300 rounded-xl p-6 text-center text-gray-500">
           {activeTab === "pending"
             ? "No pending student registrations."
             : "No rejected students."}
@@ -161,7 +161,7 @@ function ApproveStudents() {
         <div className="bg-white shadow-md rounded-xl overflow-hidden">
           <div className="overflow-x-auto max-w-full border rounded-xl">
             <table className="min-w-[900px] w-full text-sm">
-              <thead className="bg-slate-100 text-slate-600 sticky top-0 z-10">
+              <thead className="bg-gray-100 text-gray-600 sticky top-0 z-10">
                 <tr>
                   <th className="p-3 text-left">Name</th>
                   <th className="p-3 text-left">Student ID</th>
@@ -175,17 +175,17 @@ function ApproveStudents() {
                 {currentList.map((s) => (
                   <tr
                     key={s.uid}
-                    className="border-b last:border-0 hover:bg-slate-50"
+                    className="border-b last:border-0 hover:bg-gray-50"
                   >
                     <td className="p-3">
-                      <div className="font-medium text-slate-800">{s.name}</div>
+                      <div className="font-medium text-gray-800">{s.name}</div>
                     </td>
-                    <td className="p-3 text-slate-700">{s.studentId || "-"}</td>
-                    <td className="p-3 text-slate-700">
+                    <td className="p-3 text-gray-700">{s.studentId || "-"}</td>
+                    <td className="p-3 text-gray-700">
                       {s.department || "-"}
                     </td>
-                    <td className="p-3 text-slate-700">{s.email || "-"}</td>
-                    <td className="p-3 text-slate-500">
+                    <td className="p-3 text-gray-700">{s.email || "-"}</td>
+                    <td className="p-3 text-gray-500">
                       {s.createdAt?.toDate
                         ? s.createdAt.toDate().toLocaleString()
                         : "-"}
@@ -231,7 +231,7 @@ function ApproveStudents() {
         onPrimaryClick={handleApprove}
         onClose={() => setConfirmOpen(false)}
       >
-        <p className="text-sm text-slate-700">
+        <p className="text-sm text-gray-700">
           Do you want to{" "}
           <span className="font-semibold text-emerald-700">approve</span>{" "}
           student <span className="font-semibold">{selectedStudent?.name}</span>{" "}
@@ -247,7 +247,7 @@ function ApproveStudents() {
         onClose={() => setRejectOpen(false)}
       >
         <div className="space-y-3">
-          <p className="text-sm text-slate-700">
+          <p className="text-sm text-gray-700">
             You are about to{" "}
             <span className="font-semibold text-rose-700">reject</span> student{" "}
             <span className="font-semibold">{selectedStudent?.name}</span> (

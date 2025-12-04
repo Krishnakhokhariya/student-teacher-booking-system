@@ -33,7 +33,7 @@ export default function AppNavbar({ openSidebar }) {
       </button>
 
       <h1 className="text-lg font-semibold text-white">
-        Hello, {userProfile?.name || "Admin"}
+        AppointMe
       </h1>
     </div>
     <div className="flex items-center gap-3">

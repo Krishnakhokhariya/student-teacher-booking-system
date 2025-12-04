@@ -216,7 +216,7 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
                   {day}
                 </div>
 
-                <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-56 left-1/2 -translate-x-1/2 mt-2 z-50 shadow-xl">
+                <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-56 left-1/2 -trangray-x-1/2 mt-2 z-50 shadow-xl">
                   {apps.length > 0 ? (
                     <>
                       {apps.map((a) => (

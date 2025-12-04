@@ -15,20 +15,20 @@ function Modal({ isOpen, title, children, onClose, primaryLabel = "OK", onPrimar
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
         
         <div className="flex items-center justify-between border-b px-4 py-3">
-          <h2 className="text-lg font-semibold text-slate-800">{title}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600">
+          <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="px-4 py-4 text-sm text-slate-700 overflow-y-auto max-h-[65vh]">
+        <div className="px-4 py-4 text-sm text-gray-700 overflow-y-auto max-h-[65vh]">
           {children}
         </div>
 
-        <div className="flex justify-end gap-3 border-t px-4 py-3 bg-slate-50">
+        <div className="flex justify-end gap-3 border-t px-4 py-3 bg-gray-50">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 text-sm rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100"
+            className="px-4 py-1.5 text-sm rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
           >
             Close
           </button>

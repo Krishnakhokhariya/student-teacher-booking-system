@@ -105,7 +105,7 @@ export default function AdminDashboard() {
         <h2 className="text-lg font-semibold mb-3">Recent Activity</h2>
 
         {recentLogs.length === 0 ? (
-          <p className="text-slate-500 text-sm">No recent activity.</p>
+          <p className="text-gray-500 text-sm">No recent activity.</p>
         ) : (
           <ul className="divide-y">
             {recentLogs.map((log, i) => (

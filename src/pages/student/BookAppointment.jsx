@@ -112,10 +112,10 @@ export default function BookAppointment() {
     <StudentLayout>
       <div className="max-w-xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-800">
+          <h1 className="text-2xl font-semibold text-gray-800">
             Book Appointment
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-sm text-gray-600 mt-1">
            Select an available date and slots for {" "}
             <span className="font-semibold">
               {teacher?.name ||
@@ -124,15 +124,15 @@ export default function BookAppointment() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md border border-slate-200 p-5">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-5">
           {loadingTeacher ? (
-            <p className="text-sm text-slate-500">Loading teacher...</p>
+            <p className="text-sm text-gray-500">Loading teacher...</p>
           ) : !teacher ? (
             <p className="text-sm text-red-600">
               No teacher selected. Please go back to{" "}
               <button
                 onClick={() => navigate("/student/search-teacher")}
-                className="underline text-slate-800"
+                className="underline text-gray-800"
               >
                 Search Teachers
               </button>
@@ -140,15 +140,15 @@ export default function BookAppointment() {
             </p>
           ) : (
             <>
-              <div className="mb-4 border-b border-slate-200 pb-3">
-                <h2 className="text-base font-semibold text-slate-800">
+              <div className="mb-4 border-b border-gray-200 pb-3">
+                <h2 className="text-base font-semibold text-gray-800">
                   {teacher.name}
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-gray-500">
                   {teacher.department || "Department N/A"} •{" "}
                   {teacher.subject || "Subject N/A"}
                 </p>
-                <p className="mt-1 text-xs text-slate-500 break-all">
+                <p className="mt-1 text-xs text-gray-500 break-all">
                   {teacher.email}
                 </p>
               </div>
@@ -157,11 +157,11 @@ export default function BookAppointment() {
                 <p className="text-sm font-semibold mb-2">Available Slots</p>
 
                 {availability.length === 0 ? (
-                  <p className="text-xs text-slate-500">No availability added.</p>
+                  <p className="text-xs text-gray-500">No availability added.</p>
                 ) : (
                   availability.map((day) => (
                     <div key={day.date} className="mb-4">
-                      <p className="text-xs font-semibold text-slate-700 mb-1">
+                      <p className="text-xs font-semibold text-gray-700 mb-1">
                         {day.formattedDate}
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -176,7 +176,7 @@ export default function BookAppointment() {
                               selected.date === day.date &&
                               selected.slot === slot
                                 ? "bg-gray-900 text-white border-gray-900"
-                                : "bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200"
+                                : "bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200"
                             }`}
                           >
                             {slot}
@@ -191,11 +191,11 @@ export default function BookAppointment() {
               <form className="space-y-4" onSubmit={handleSubmit}>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">
+                  <label className="block text-xs font-medium text-gray-600 mb-1">
                     Purpose
                   </label>
                   <textarea
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-slate-800 focus:outline-none min-h-[80px]"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none min-h-[80px]"
                     placeholder="Describe why you want to meet (e.g. discuss project, get feedback, assignment help)"
                     value={purpose}
                     onChange={(e) => setPurpose(e.target.value)}
@@ -207,7 +207,7 @@ export default function BookAppointment() {
                   <button
                     type="button"
                     onClick={() => navigate("/student/search-teacher")}
-                    className="px-4 py-1.5 text-sm rounded-full border border-slate-300 text-slate-600 hover:bg-slate-100"
+                    className="px-4 py-1.5 text-sm rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
                   >
                     Cancel
                   </button>
@@ -234,7 +234,7 @@ export default function BookAppointment() {
           }}
           onClose={() => setSuccessOpen(false)}
         >
-          <p className="text-sm text-slate-700">
+          <p className="text-sm text-gray-700">
             Your appointment request has been submitted and is currently{" "}
             <span className="font-semibold">pending approval</span> from the
             teacher.

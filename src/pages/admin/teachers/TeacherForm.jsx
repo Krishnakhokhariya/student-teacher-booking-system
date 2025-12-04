@@ -26,7 +26,7 @@ export default function TeacherForm({
     >
       <div className="space-y-3">
         <div>
-          <label className="block text-sm text-slate-600">Full Name</label>
+          <label className="block text-sm text-gray-600">Full Name</label>
           <input
             type="text"
             className="w-full border rounded-lg px-3 py-2 text-sm"
@@ -36,7 +36,7 @@ export default function TeacherForm({
           />
         </div>
         <div>
-          <label className="block text-sm text-slate-600">Email</label>
+          <label className="block text-sm text-gray-600">Email</label>
           <input
             type="email"
             className="w-full border rounded-lg px-3 py-2 text-sm"
@@ -47,7 +47,7 @@ export default function TeacherForm({
           />
         </div>
         <div>
-          <label className="block text-sm text-slate-600">Department</label>
+          <label className="block text-sm text-gray-600">Department</label>
           <input
             type="text"
             className="w-full border rounded-lg px-3 py-2 text-sm"
@@ -57,7 +57,7 @@ export default function TeacherForm({
           />
         </div>
         <div>
-          <label className="block text-sm text-slate-600">Subject</label>
+          <label className="block text-sm text-gray-600">Subject</label>
           <input
             type="text"
             className="w-full border rounded-lg px-3 py-2 text-sm"

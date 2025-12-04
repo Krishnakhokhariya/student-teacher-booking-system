@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  sendPasswordResetEmail
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { addNotifications } from "../utils/notifications";
@@ -93,6 +94,13 @@ export function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const resetPassword = async (email) => {
+    if(!email) throw new Error("Please enter your email");
+
+    await sendPasswordResetEmail(auth, email);
+    return "Password reset link sent";
+  }
+
   const logout = () => {
     return signOut(auth);
   };
@@ -100,6 +108,7 @@ export function AuthProvider({ children }) {
   const clearAuthState = () => {
     setUserProfile(null);
   };
+
 
   return (
     <AuthContext.Provider
@@ -110,6 +119,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         registerStudent,
+        resetPassword,
         clearAuthState,
       }}
     >

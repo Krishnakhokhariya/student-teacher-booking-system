@@ -14,7 +14,7 @@ export default function DeleteConfirm({
     primaryLabel="Delete"
     onPrimaryClick={onDelete}
     onClose={onClose}>
-        <p className="text-sm text-slate-700">Are you sure to delete {" "}
+        <p className="text-sm text-gray-700">Are you sure to delete {" "}
             <span className="font-semibold">{teacherName}</span>?
             <br/>
             This action cannot be undone.

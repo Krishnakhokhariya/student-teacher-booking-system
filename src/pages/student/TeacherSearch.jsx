@@ -85,24 +85,24 @@ function TeacherSearch() {
         </div>
       
 
-      <div className="bg-white shadow-sm rounded-xl p-4 border border-slate-200">
-            <label className="block text-xs font-medium text-slate-600 mb-1">
+      <div className="bg-white shadow-sm rounded-xl p-4 border border-gray-200">
+            <label className="block text-xs font-medium text-gray-600 mb-1">
               Search 
             </label>
             <input
               type="text"
-              className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-slate-800 focus:outline-none"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-gray-800 focus:outline-none"
               placeholder="by name, email, department or subject"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
       </div>
        {loading ? (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 text-center text-slate-500">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 text-center text-gray-500">
             Loading teachers...
           </div>
         ) : filteredTeachers.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border border-dashed border-slate-300 p-6 text-center text-slate-500">
+          <div className="bg-white rounded-xl shadow-sm border border-dashed border-gray-300 p-6 text-center text-gray-500">
             No teachers found. Try changing your filters.
           </div>
         ) : (
@@ -110,31 +110,31 @@ function TeacherSearch() {
             {filteredTeachers.map((t) => (
               <div
                 key={t.uid || t.id}
-                className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col"
+                className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col"
               >
                 <div className="p-4 flex-1">
                   <div className="flex justify-between items-start gap-2">
-                    <h3 className="text-base font-semibold text-slate-800">
+                    <h3 className="text-base font-semibold text-gray-800">
                       {t.name || "Unnamed Teacher"}
                     </h3>
-                    <span className="text-xs px-2 py-1 text-center rounded-full bg-slate-100 text-slate-600">
+                    <span className="text-xs px-2 py-1 text-center rounded-full bg-gray-100 text-gray-600">
                       {t.department || "Dept N/A"}
                     </span>
                   </div>
 
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p className="mt-1 text-xs text-gray-500">
                     {t.subject || "Subject not specified"}
                   </p>
 
-                  <p className="mt-2 text-xs text-slate-500 break-all">
+                  <p className="mt-2 text-xs text-gray-500 break-all">
                     {t.email}
                   </p>
                 </div>
 
-                <div className="border-t border-slate-100 p-3 flex gap-2">
+                <div className="border-t border-gray-100 p-3 flex gap-2">
                   <button
                     onClick={() => openProfile(t)}
-                    className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100"
+                    className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
                   >
                     View Profile
                   </button>
@@ -177,16 +177,16 @@ function TeacherSearch() {
                 <p className="font-semibold mb-2">Availability</p>
 
                 {availability.length === 0 ? (
-                  <p className="text-slate-500 text-sm">
+                  <p className="text-gray-500 text-sm">
                     No available slots.
                   </p>
                 ) : (
                   availability.map((day, index) => (
                     <div key={day.date} 
                     className={`pb-3 mb-3 ${
-                      index !== availability.length - 1 ? "border-b border-slate-200" : ""
+                      index !== availability.length - 1 ? "border-b border-gray-200" : ""
                       }`}>
-                      <p className="text-xs font-semibold text-slate-700 mb-1">
+                      <p className="text-xs font-semibold text-gray-700 mb-1">
                         {day.formattedDate}
                       </p>
 
@@ -194,7 +194,7 @@ function TeacherSearch() {
                         {day.slots.map((slot) => (
                           <span
                             key={slot}
-                            className="px-2 py-1 bg-slate-100 borfer-b rounded-full text-xs"
+                            className="px-2 py-1 bg-gray-100 borfer-b rounded-full text-xs"
                           >
                             {slot}
                           </span>

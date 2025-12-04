@@ -82,10 +82,10 @@ function Notifications() {
       <div className="max-w-4xl mx-auto space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900">
+            <h1 className="text-2xl font-semibold text-gray-900">
               Notifications
             </h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-gray-500 mt-1">
               See updates about registrations and appointments.
             </p>
           </div>
@@ -102,11 +102,11 @@ function Notifications() {
 
         <div className="bg-white rounded-2xl shadow-sm border">
           {loading ? (
-            <div className="p-6 text-center text-slate-500">
+            <div className="p-6 text-center text-gray-500">
               Loading Notifications...
             </div>
           ) : notifications.length === 0 ? (
-            <div className="p-6 text-center text-slate-500 text-sm">
+            <div className="p-6 text-center text-gray-500 text-sm">
               No notifications yet
             </div>
           ) : (
@@ -129,7 +129,7 @@ function Notifications() {
                     <p className="mt-1 text-sm text-gray-900">{n.message}</p>
                   </div>
 
-                  <div className="flex flex-col items-end gap-2 ml-4 min-w-[120px]">
+                  <div className="flex flex-col items-end gap-2 min-w-[120px]">
 
                     <p className="text-xs text-gray-500 whitespace-nowrap">
                       {formatDateTime(n.createdAt)}
@@ -158,7 +158,7 @@ function Notifications() {
         title="Notification"
         onClose={() => setAlertOpen(false)}
       >
-        <p className="text-sm text-slate-700">{alertMsg}</p>
+        <p className="text-sm text-gray-700">{alertMsg}</p>
       </Modal>
     </AppLayout>
   );

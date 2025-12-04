@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 
 export default function Login() {
-  const { login, userProfile } = useAuth();
+  const { login, userProfile, resetPassword } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -14,7 +14,8 @@ export default function Login() {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Keep login page accessible to all users regardless of current session.
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -61,6 +62,16 @@ export default function Login() {
     }
   }
 
+  async function handleResetPassword() {
+    try {
+      await resetPassword(email);
+      setResetSuccess(true);
+    } catch (err) {
+      setErrorMessage("Failed to send reset link");
+      setErrorOpen(true);
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white w-full max-w-md rounded-xl shadow-md p-8 animate-fadeIn">
@@ -94,6 +105,15 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <div className="text-right mt-2">
+              <button
+                type="button"
+                className="text-sm text-gray-700 hover:text-black underline"
+                onClick={() => setResetOpen(true)}
+              >
+                Forgot password?
+              </button>
+            </div>
           </div>
 
           <button
@@ -122,6 +142,36 @@ export default function Login() {
         onClose={() => setErrorOpen(false)}
       >
         <p className="text-sm text-red-600">{errorMessage}</p>
+      </Modal>
+
+      <Modal
+        isOpen={resetOpen}
+        title="Reset Password"
+        primaryLabel="Send Reset Link"
+        onPrimaryClick={handleResetPassword}
+        onClose={() => setResetOpen(false)}
+      >
+        <p className="text-sm text-gray-700">
+          Enter your email, Password reset link will be sent on email.
+        </p>
+        <input
+          type="email"
+          className="w-full mt-3 border border-gray-300 rounded-lg px-3 py-2 text-sm"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Registered Email"
+        />
+      </Modal>
+
+      <Modal
+        isOpen={resetSuccess}
+        title="Email Sent"
+        primaryLabel="OK"
+        onClose={() => setResetSuccess(false)}
+      >
+        <p className="text-sm text-gray-600">
+          A reset password link has been sent to {email}. Check your inbox.
+        </p>
       </Modal>
     </div>
   );

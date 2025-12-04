@@ -57,7 +57,7 @@ export default function StudentDashboard() {
 
   return (
     <StudentLayout>
-      <h1 className="text-2xl font-semibold text-slate-800 mb-6">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
         Welcome, {userProfile?.name}
       </h1>
 
@@ -127,9 +127,9 @@ function Section({ title, children }) {
 
 function AppointmentCard({ app }) {
   return (
-    <div className="border rounded-xl p-4 mb-3 shadow-sm hover:shadow transition bg-slate-50">
+    <div className="border rounded-xl p-4 mb-3 shadow-sm hover:shadow transition bg-gray-50">
 
-      <div className="font-semibold text-slate-800">{app.teacherName}</div>
+      <div className="font-semibold text-gray-800">{app.teacherName}</div>
 
       <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
 
@@ -165,8 +165,8 @@ function AppointmentCard({ app }) {
 function TeacherCard({ teacher }) {
   return (
     <div className="border h-full rounded-xl p-4 mb-3 shadow-sm hover:shadow transition bg-white">
-      <div className="font-semibold text-slate-800">{teacher.name}</div>
-      <div className="text-sm text-slate-600">{teacher.department}</div>
+      <div className="font-semibold text-gray-800">{teacher.name}</div>
+      <div className="text-sm text-gray-600">{teacher.department}</div>
     </div>
   );
 }
@@ -252,7 +252,7 @@ function MiniCalendarStudent({ appointments }) {
                 </div>
 
                 {apps.length > 0 && (
-                  <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-52 left-1/2 -translate-x-1/2 mt-2 z-50 shadow-xl">
+                  <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-52 left-1/2 -trangray-x-1/2 mt-2 z-50 shadow-xl">
                     {apps.map((a) => (
                       <div
                         key={a.id}

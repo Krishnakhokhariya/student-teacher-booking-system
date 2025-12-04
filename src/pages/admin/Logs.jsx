@@ -24,7 +24,7 @@ export default function Logs() {
       <div className="bg-white shadow-md rounded-xl overflow-hidden">
          <div className="overflow-x-auto max-w-full border rounded-xl">
            <table className="min-w-[900px] w-full text-sm">
-             <thead className="bg-slate-100 text-slate-600 sticky top-0 z-10">
+             <thead className="bg-gray-100 text-gray-600 sticky top-0 z-10">
               <tr>
                 <th className="p-3 text-left">Action</th>
                 <th className="p-3 text-left">Message</th>
@@ -35,11 +35,11 @@ export default function Logs() {
 
             <tbody>
               {logs.map((log, i) => (
-                <tr key={i} className="border-b last:border-0 hover:bg-slate-50">
+                <tr key={i} className="border-b last:border-0 hover:bg-gray-50">
                   <td className="p-3 font-semibold">{log.action}</td>
                   <td className="p-3">{log.message}</td>
                   <td className="p-3">{log.by || "-"}</td>
-                  <td className="p-3 text-slate-600 whitespace-nowrap">
+                  <td className="p-3 text-gray-600 whitespace-nowrap">
                     {log.createdAt?.toDate
                       ? log.createdAt.toDate().toLocaleString('en-In')
                       : "-"}
