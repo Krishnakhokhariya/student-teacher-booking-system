@@ -123,3 +123,20 @@ export async function getRejectedStudents() {
     ...d.data(),
   }));
 }
+
+// export async function updateStudentProfile(uid, {name, department, studentId}){
+//   const userRef = doc(db, "users", uid);
+//   await setDoc(userRef,{
+//     name, 
+//     department,
+//     studentId,
+//     profileUpdatedAt: serverTimestamp(),
+//   },
+//   {merge: true});
+
+//    await addLog({
+//     action: "student_profile_updated",
+//     message: `${name} updated profile`,
+//     by: uid,
+//   });
+// }

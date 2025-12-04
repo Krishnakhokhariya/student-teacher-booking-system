@@ -67,6 +67,8 @@ function ApproveStudents() {
   async function handleApprove() {
     if (!selectedStudent) return;
     const student = selectedStudent;
+    setConfirmOpen(false);
+    setSelectedStudent(null);
 
     try {
       await approveStudent(student, userProfile.uid);
@@ -87,10 +89,7 @@ function ApproveStudents() {
     } catch (err) {
       console.error(err);
       showAlert(`Failed to approve student: ${err.message || err}`);
-    } finally {
-      setConfirmOpen(false);
-      setSelectedStudent(null);
-    }
+    } 
   }
 
   async function handleReject() {

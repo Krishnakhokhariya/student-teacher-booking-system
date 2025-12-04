@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import TeacherLayout from "../../layouts/TeacherLayout";
 import { useAuth } from "../../context/AuthContext";
 import {
@@ -23,6 +23,9 @@ export default function TeacherAppointments() {
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
 
   useEffect(() => {
     loadAppointments();
@@ -61,17 +64,14 @@ export default function TeacherAppointments() {
         showAlert("Appointment approved.");
       }
 
-      if (actionType === "reject") {
+      if (actionType === "reject" || actionType === "cancel") {
         await rejectAppointment(selected.id, userProfile.uid, selected);
         updateList("rejected");
-        showAlert("Appointment rejected.");
+        showAlert( actionType === "cancel" 
+          ? "Appointment Cancelled."
+          : "Appointment rejected.");
       }
 
-      if (actionType === "cancel") {
-        await rejectAppointment(selected.id, userProfile.uid, selected);
-        updateList("rejected");
-        showAlert("Appointment get rejected.");
-      }
     } catch (err) {
       showAlert("Action failed.");
       console.error(err);
@@ -86,7 +86,27 @@ export default function TeacherAppointments() {
     );
   }
 
-  const filtered = appointments.filter((a) => a.status === selectedTab);
+  const filtered = appointments.filter((a) => {
+    const appDate = new Date(a.date);
+    appDate.setHours(0,0,0,0);
+
+    if(selectedTab === "pending"){
+      return a.status === "pending" && appDate >= today;
+    }
+     if(selectedTab === "approved"){
+      return a.status === "approved" && appDate >= today;
+    }
+     if(selectedTab === "rejected"){
+      return a.status === "rejected" && appDate >= today;
+    }
+     if(selectedTab === "history"){
+      return appDate < today;
+    }
+
+    return false;
+  })
+
+  // const filtered = appointments.filter((a) => a.status === selectedTab);
 
   return (
     <TeacherLayout>
@@ -95,7 +115,7 @@ export default function TeacherAppointments() {
       </h1>
 
       <div className="flex gap-4 border-b pb-2 mb-4">
-        {["pending", "approved", "rejected"].map((tab) => (
+        {["pending", "approved", "rejected", "history"].map((tab) => (
           <button
             key={tab}
             onClick={() => setSelectedTab(tab)}
@@ -105,7 +125,18 @@ export default function TeacherAppointments() {
                 : "border-transparent text-gray-500"
             }`}
           >
-            {tab} ({appointments.filter((a) => a.status === tab).length})
+            {tab} (
+              {
+                appointments.filter((a) => {
+                  const d = new Date(a.date);
+                  d.setHours(0,0,0,0);
+
+                  if(tab === "history") return d < today;
+                  if(tab === a.status && d > today) return true;
+                  return false;
+                }).length
+              }
+              )
           </button>
         ))}
       </div>
@@ -117,7 +148,7 @@ export default function TeacherAppointments() {
           No {selectedTab} appointments.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filtered.map((app) => (
             <div
               key={app.id}
@@ -143,7 +174,12 @@ export default function TeacherAppointments() {
                 <p className="text-sm text-gray-700">{app.purpose}</p>
               </div>
 
-              {/* Actions */}
+              <div>
+                <p className="text-sm text-gray-500">Status</p>
+                <p className="text-sm text-gray-700">{app.status}</p>
+              </div>
+
+            {selectedTab !== "history" && (
               <div className="mt-auto flex gap-2">
                 {selectedTab === "pending" && (
                   <>
@@ -180,12 +216,12 @@ export default function TeacherAppointments() {
                   </button>
                 )}
               </div>
+              )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Confirm Modal */}
       <Modal
         isOpen={confirmOpen}
         title="Confirm Action"

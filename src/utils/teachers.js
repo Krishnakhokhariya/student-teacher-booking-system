@@ -120,3 +120,21 @@ export async function searchTeacher(){
   // const all = await getTeachers();
   // return all.filter((t) => t.role === "teacher" || !t.role ? true: true);
 }
+
+// export async function updateTeacherSelfProfile(uid, {name, department, subject}){
+//   const userRef = doc(db, "users", uid);
+
+//   await setDoc(userRef, {
+//     name,
+//     department,
+//     subject,
+//     profileUpdatedAt: serverTimestamp(),
+//   },
+//   { merge: true }); 
+
+//    await addLog({
+//     action: "teacher_profile_updated",
+//     message: `Teacher ${name} updated profile`,
+//     by: uid,
+//   });
+// }

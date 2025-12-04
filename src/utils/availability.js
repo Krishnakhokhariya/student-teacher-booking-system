@@ -78,7 +78,23 @@ export async function getTeacherAvailability(teacherId) {
 export async function getFormattedAvailability(teacherId){
     const raw = await getTeacherAvailability(teacherId);
 
-    return SortAvailability(raw);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const pastEntries = raw.filter((item) => {
+      const d = new Date(item.date);
+      return d < today;
+    });
+
+    for (let entry of pastEntries){
+      await deleteDoc(doc(db, "teachers", teacherId, "availability", entry.id));
+    }
+
+    const upcoming = raw.filter((item) => {
+      const d = new Date(item.date);
+      return d >= today;
+    })
+    return SortAvailability(upcoming);
 }
 
 export async function addDate(teacherId, date) {

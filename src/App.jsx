@@ -28,6 +28,7 @@ import MyAppointments from "./pages/student/MyAppointments";
 
 import Messages from "./pages/messages";
 import Notifications from "./pages/AllNotifications";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -121,6 +122,16 @@ function App() {
           </ProtectedRoutes>
         }
       />
+      <Route
+        path="/teacher/profile"
+        element={
+          <ProtectedRoutes>
+            <TeacherRoutes>
+              <Profile />
+            </TeacherRoutes>
+          </ProtectedRoutes>
+        }
+      />
 
       {/* Student Routes */}
       <Route
@@ -163,13 +174,22 @@ function App() {
           </ProtectedRoutes>
         }
       />
-
       <Route
         path="/student/messages"
         element={
           <ProtectedRoutes>
             <StudentRoutes>
               <Messages />
+            </StudentRoutes>
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/student/profile"
+        element={
+          <ProtectedRoutes>
+            <StudentRoutes>
+              <Profile />
             </StudentRoutes>
           </ProtectedRoutes>
         }
