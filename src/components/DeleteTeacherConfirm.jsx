@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import React from 'react'
 
-export default function DeleteConfirm({
+export default function DeleteTeacherConfirm({
     isOpen,
     onClose,
     onDelete,

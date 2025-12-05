@@ -1,4 +1,3 @@
-// src/pages/student/BookAppointment.jsx
 import React, { useEffect, useState } from "react";
 import StudentLayout from "../../layouts/StudentLayout";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";

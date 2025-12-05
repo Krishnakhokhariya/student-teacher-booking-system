@@ -27,9 +27,31 @@ export default function StudentDashboard() {
   async function loadData() {
     const apps = await getAppoinmentsForStudnet(userProfile.uid);
     setAppointments(apps);
-    const today = new Date().toISOString().split("T")[0];
 
-    const todayApps = apps.filter((a) => a.date === today);
+    const today = new Date().toLocaleDateString("en-CA", {
+      timeZone: "Asia/Kolkata",
+    });
+
+    function normalize(dateValue) {
+      if (dateValue?.toDate) {
+        return dateValue.toDate().toLocaleDateString("en-CA", {
+          timeZone: "Asia/Kolkata",
+        });
+      }
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) return dateValue;
+
+      if (/^\d{2}-\d{2}-\d{4}$/.test(dateValue)) {
+        const [d, m, y] = dateValue.split("-");
+        return `${y}-${m}-${d}`;
+      }
+
+      return dateValue;
+    }
+
+    const todayApps = apps.filter(
+      (a) => normalize(a.date) === today && a.status !== "rejected"
+    );
+
     setTodayList(todayApps);
 
     setStats({
@@ -77,13 +99,13 @@ export default function StudentDashboard() {
       </div>
 
       <div className="grid grid-cols-1">
-          <Section title="Today's Appointments">
-            {todayList.length === 0 ? (
-              <p className="text-sm text-gray-600">No appointments for today.</p>
-            ) : (
-              todayList.map((a) => <AppointmentCard key={a.id} app={a} />)
-            )}
-          </Section>
+        <Section title="Today's Appointments">
+          {todayList.length === 0 ? (
+            <p className="text-sm text-gray-600">No appointments for today.</p>
+          ) : (
+            todayList.map((a) => <AppointmentCard key={a.id} app={a} />)
+          )}
+        </Section>
 
         <div>
           <Section title={`Suggested Teachers (${userProfile.department})`}>
@@ -99,7 +121,6 @@ export default function StudentDashboard() {
     </StudentLayout>
   );
 }
-
 
 function StatCard({ title, value, color }) {
   return (
@@ -123,16 +144,12 @@ function Section({ title, children }) {
   );
 }
 
-
-
 function AppointmentCard({ app }) {
   return (
     <div className="border rounded-xl p-4 mb-3 shadow-sm hover:shadow transition bg-gray-50">
-
       <div className="font-semibold text-gray-800">{app.teacherName}</div>
 
       <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
-
         <div className="flex items-center gap-2 text-sm">
           <CalendarIcon className="h-5 w-5 text-gray-500" />
           <span>{formatIndian(app.date)}</span>
@@ -157,7 +174,6 @@ function AppointmentCard({ app }) {
           </span>
         </div>
       </div>
-
     </div>
   );
 }
@@ -223,40 +239,64 @@ function MiniCalendarStudent({ appointments }) {
       </div>
 
       <div className="grid grid-cols-7 text-center">
+        {/* leading blanks */}
         {Array(firstDay)
           .fill(null)
           .map((_, i) => (
             <div key={"blank" + i}></div>
           ))}
 
+        {/* Calendar Days */}
         {Array(totalDays)
           .fill(null)
           .map((_, dayIndex) => {
             const day = dayIndex + 1;
-
             const dateStr = `${year}-${String(month + 1).padStart(
               2,
               "0"
             )}-${String(day).padStart(2, "0")}`;
-            const isToday = dateStr === todayStr;
 
             const apps = getAppointmentsByDate(dateStr);
+            const isToday = dateStr === todayStr;
             const status = getDayStatus(apps, isToday);
+
+            // Determine calendar grid position
+            const col = (dayIndex + firstDay) % 7;
+            const row = Math.floor((dayIndex + firstDay) / 7);
+            const totalRows = Math.ceil((firstDay + totalDays) / 7);
+
+            // Vertical positioning (top / bottom)
+            const vertical =
+              row === totalRows - 1 ? "bottom-full mb-2" : "top-full mt-2";
+
+            // Horizontal positioning (left / center / right)
+            let horizontal = "left-1/2 -translate-x-1/2";
+            if (col <= 1) horizontal = "left-0 translate-x-0";
+            else if (col >= 5) horizontal = "right-0 translate-x-0";
 
             return (
               <div key={day} className="relative group">
+                {/* Calendar Day */}
                 <div
                   className={`p-2 rounded-lg cursor-pointer transition ${COLORS[status]}`}
                 >
                   {day}
                 </div>
 
+                {/* Tooltip – only if appointments exist */}
                 {apps.length > 0 && (
-                  <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-52 left-1/2 -trangray-x-1/2 mt-2 z-50 shadow-xl">
+                  <div
+                    className={`
+                      absolute hidden group-hover:block 
+                      bg-gray-900 text-white text-xs p-2 rounded-lg 
+                      shadow-xl z-50 w-56 max-w-[80vw]
+                      ${vertical} ${horizontal}
+                    `}
+                  >
                     {apps.map((a) => (
                       <div
                         key={a.id}
-                        className="mb-1 pb-1 border-b border-gray-700"
+                        className="mb-1 pb-1 border-b border-gray-700 last:border-b-0 last:pb-0"
                       >
                         <strong>{a.slot}</strong>
                         <br />

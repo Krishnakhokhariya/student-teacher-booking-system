@@ -51,38 +51,6 @@ export default function TeacherSchedule() {
   }, []);
 
   async function loadAvailability() {
-    // const ref = collection(db, "teachers", userProfile.uid, "availability");
-    // const snap = await getDocs(ref);
-
-    // const raw = snap.docs.map((d) => ({
-    //   id: d.id,
-    //   ...d.data(),
-    // }));
-
-    // const grouped = raw.reduce((acc, item) => {
-    //   if (!acc[item.date]) acc[item.date] = [];
-    //   acc[item.date].push(item);
-    //   return acc;
-    // }, {});
-    // const formatted = Object.keys(grouped).map((date) => ({
-    //   date,
-    //   slots: grouped[date].sort(
-    //     (a, b) => parseSlot(a.slot) - parseSlot(b.slot)
-    //   ),
-    // }));
-
-    // const today = new Date();
-    // today.setHours(0, 0, 0, 0);
-
-    // formatted.sort((a, b) => {
-    //   const da = new Date(a.date);
-    //   const db = new Date(b.date);
-
-    //   if (da >= today && db >= today) return da - db;
-    //   if (da >= today && db < today) return -1;
-    //   if (da < today && db >= today) return 1;
-    //   return da - bd;
-    // });
 
     const formatted = await getFormattedAvailability(userProfile.uid);
 

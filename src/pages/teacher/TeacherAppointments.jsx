@@ -19,7 +19,7 @@ export default function TeacherAppointments() {
   const [selected, setSelected] = useState(null);
 
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [actionType, setActionType] = useState(""); // approve | reject | cancel
+  const [actionType, setActionType] = useState(""); 
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -106,7 +106,7 @@ export default function TeacherAppointments() {
     return false;
   })
 
-  // const filtered = appointments.filter((a) => a.status === selectedTab);
+  
 
   return (
     <TeacherLayout>

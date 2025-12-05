@@ -29,9 +29,10 @@ function TeacherDashboard() {
     ]);
     const normalizedAvailability = avl.map((a) => ({
       ...a,
-      date: new Date(a.date + "T00:00:00").toLocaleDateString("en-CA", {
-        timeZone: "Asia/Kolkata",
-      }),
+      date: a.date,
+      // date: new Date(a.date + "T00:00:00").toLocaleDateString("en-CA", {
+      //   timeZone: "Asia/Kolkata",
+      // }),
     }));
 
     setAppointments(apps);
@@ -148,9 +149,9 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
   }
 
   function getAvailableSlotsByDate(date) {
-  const matching = availability.filter(a => a.date === date);
-  return matching.length > 0 ? matching.map(a => a.slot) : [];
-}
+    const matching = availability.filter((a) => a.date === date);
+    return matching.length > 0 ? matching.map((a) => a.slot) : [];
+  }
 
   function getDayStatus(apps, slots, isToday) {
     if (isToday) return "today";
@@ -167,6 +168,10 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
     available: "bg-yellow-200 text-yellow-900",
     none: "hover:bg-gray-200",
   };
+
+  const todayStr = new Date().toLocaleDateString("en-CA", {
+    timeZone: "Asia/Kolkata",
+  });
 
   return (
     <div className="bg-white shadow-md rounded-xl p-5 space-y-4">
@@ -197,16 +202,28 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
               "0"
             )}-${String(day).padStart(2, "0")}`;
 
-            const todayStr = new Date().toLocaleDateString("en-CA", {
-              timeZone: "Asia/Kolkata",
-            });
-
             const isToday = todayStr === dateStr;
 
             const apps = getAppointmentsByDate(dateStr);
             const slots = getAvailableSlotsByDate(dateStr);
 
             const status = getDayStatus(apps, slots, isToday);
+
+            const col = (dayIndex + firstDay) % 7;
+            const row = Math.floor((dayIndex + firstDay) / 7);
+            const totalRows = Math.ceil((firstDay + totalDays) / 7);
+
+            const verticalClass =
+              row === totalRows - 1 ? "bottom-full mb-2" : "top-full mt-2";
+
+            let horizontalClass = "left-1/2 -translate-x-1/2";
+            if (col <= 1) {
+              horizontalClass = "left-0 translate-x-0";
+            } else if (col >= 5) {
+              horizontalClass = "right-0 translate-x-0";
+            }
+
+            const hasContent = apps.length > 0 || slots.length > 0;
 
             return (
               <div key={day} className="relative group">
@@ -216,40 +233,48 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
                   {day}
                 </div>
 
-                <div className="absolute hidden group-hover:block bg-gray-900 text-white text-xs p-2 rounded-lg w-56 left-1/2 -trangray-x-1/2 mt-2 z-50 shadow-xl">
-                  {apps.length > 0 ? (
-                    <>
-                      {apps.map((a) => (
-                        <div
-                          key={a.id}
-                          className="mb-1 pb-1 border-b border-gray-700"
-                        >
-                          <strong>{a.slot}</strong> — {a.studentName}
-                          <span
-                            className={`ml-1 text-[10px] px-1 py-0.5 rounded ${
-                              a.status === "pending"
-                                ? "bg-orange-500"
-                                : "bg-green-500"
-                            }`}
+                {hasContent && (
+                  <div
+                    className={`
+                      absolute hidden group-hover:block
+                      bg-gray-900 text-white text-xs p-2 rounded-lg
+                      w-56 max-w-[80vw]
+                      shadow-xl z-50
+                      ${verticalClass} ${horizontalClass}
+                    `}
+                  >
+                    {apps.length > 0 ? (
+                      <>
+                        {apps.map((a) => (
+                          <div
+                            key={a.id}
+                            className="mb-1 pb-1 border-b border-gray-700 last:border-b-0 last:pb-0"
                           >
-                            {a.status}
-                          </span>
-                        </div>
-                      ))}
-                    </>
-                  ) : slots.length > 0 ? (
-                    <>
-                      <strong>Available Slots:</strong>
-                      <ul className="ml-3 mt-1 list-disc">
-                        {slots.map((s, idx) => (
-                          <li key={idx}>{s} — No appointments</li>
+                            <strong>{a.slot}</strong> — {a.studentName}
+                            <span
+                              className={`ml-1 text-[10px] px-1 py-0.5 rounded ${
+                                a.status === "pending"
+                                  ? "bg-orange-500"
+                                  : "bg-green-500"
+                              }`}
+                            >
+                              {a.status}
+                            </span>
+                          </div>
                         ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <p>No availability</p>
-                  )}
-                </div>
+                      </>
+                    ) : (
+                      <>
+                        <strong>Available Slots:</strong>
+                        <ul className="ml-3 mt-1 list-disc">
+                          {slots.map((s, idx) => (
+                            <li className="list-none" key={idx}>{s} — No appointments</li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
@@ -265,6 +290,8 @@ function MiniCalendar({ appointmentDates, appointments, availability }) {
     </div>
   );
 }
+
+
 
 function Legend({ color, text }) {
   return (

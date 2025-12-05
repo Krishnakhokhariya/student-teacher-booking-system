@@ -16,7 +16,6 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [firebaseUser, setFirebaseUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
-  // const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

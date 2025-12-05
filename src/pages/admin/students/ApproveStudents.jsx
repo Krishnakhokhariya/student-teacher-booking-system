@@ -99,6 +99,7 @@ function ApproveStudents() {
     try {
       await rejectStudent(student, userProfile.uid);
       setPendingStudents((prev) => prev.filter((s) => s.uid !== student.uid));
+      await loadData();
       showAlert(`Student "${student.name}" has been rejected.`);
     } catch (err) {
       console.error(err);

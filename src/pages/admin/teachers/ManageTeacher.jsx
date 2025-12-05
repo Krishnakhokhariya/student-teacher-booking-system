@@ -10,7 +10,7 @@ import {
   deleteTeacher,
 } from "../../../utils/teachers";
 import TeacherForm from "./TeacherForm";
-import DeleteConfirm from "../../../components/DeleteConfirm";
+import DeleteTeacherConfirm from "../../../components/DeleteTeacherConfirm";
 
 function ManageTeacher() {
   const { userProfile } = useAuth();
@@ -159,25 +159,24 @@ function ManageTeacher() {
         {teachers.map((t) => (
           <div
             key={t.uid}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 hover:shadow-lg transition flex justify-between items-start"
+            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 hover:shadow-lg transition flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
           >
-            <div>
-              <p className="text-lg font-semibold text-gray-900">{t.name}</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-lg font-semibold text-gray-900 text-wrap">{t.name}</p>
               <p className="text-gray-700 text-sm">{t.email}</p>
 
-              <p className="text-gray-600 text-sm mt-1">
+              <p className="text-gray-600 text-sm mt-1 text-wrap">
                 <span className="font-semibold">Department: </span>
                 {t.department}
               </p>
 
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm text-wrap">
                 <span className="font-semibold">Subject: </span>
                 {t.subject}
               </p>
             </div>
 
-            {/* RIGHT SIDE ACTIONS */}
-            <div className="flex flex-col gap-3 ml-4">
+            <div className="flex sm:flex-col flex-row gap-4 sm:ml-4 justify-end">
               <button
                 onClick={() => openEditModal(t)}
                 className="text-indigo-600 hover:text-indigo-900 flex items-center gap-1"
@@ -211,7 +210,7 @@ function ManageTeacher() {
         isEdit={!!editingId}
       />
 
-      <DeleteConfirm
+      <DeleteTeacherConfirm
         isOpen={deleteOpen}
         onClose={() => setDeleteOpen(false)}
         onDelete={handleDelete}

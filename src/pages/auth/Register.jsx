@@ -18,32 +18,6 @@ export default function Register() {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // if(userProfile?.status === 'approved'){
-  //   return <Navigate to="/student/dashboard" replace />
-  // }
-
-  // if(userProfile?.status === 'pending'){
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6 py-10">
-  //       <div className="bg-white shadow-lg rounded-xl p-8 border text-center max-w-md w-full animate-fadeIn">
-  //         <h2 className="text-xl font-semibold text-gray-800">
-  //           Your account is pending
-  //         </h2>
-  //         <p className="text-gray-600 mt-2 text-sm leading-relaxed">
-  //           Admin has not approved your registration yet.
-  //         </p>
-
-  //         <a
-  //           href="/login"
-  //           className="mt-6 inline-block px-5 py-2 bg-gray-800 text-white rounded-lg text-sm hover:bg-gray-900 transition"
-  //         >
-  //           Go to Login
-  //         </a>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);

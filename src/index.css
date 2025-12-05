@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import "react-calendar/dist/Calendar.css"; */
+
 
 
 html, body, #root {
@@ -13,7 +13,7 @@ html, body, #root {
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background-color: #f8fafc; /* light gray background */
+  background-color: #f8fafc;
   color: #1e293b;
   overflow-x: hidden;
 }
@@ -59,3 +59,4 @@ body {
 .animate-slideIn {
   animation: slideIn 0.3s ease-out;
 }
+
