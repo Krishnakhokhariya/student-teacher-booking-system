@@ -6,7 +6,9 @@ It supports three user roles (Admin, Teacher, Student) and provides scheduling, 
 ---
 
 ## Live Link
-Repository Link: https://github.com/Krishnakhokhariya/student-teacher-booking-system 
+Repository Link: https://github.com/Krishnakhokhariya/student-teacher-booking-system.git
+
+---
 
 ## 1. Features Overview
 
@@ -392,10 +394,12 @@ Once status becomes `approved`, student can login and is redirected to Student D
 - Firebase:
   - Firebase Authentication
   - Cloud Firestore
-- Chart library for dashboard graphs 
+- Chart library for dashboard graphs
+  
 ---
 
 ## 4. Project Structure (Simplified)
+```text
 src/
  ┣ components/
  ┃ ┣ layout/
@@ -462,34 +466,52 @@ src/
  ┣ main.jsx
  ┣ index.css
  ┗ App.jsx
+```
 
 ## Installation & Setup
-# Clone repo
-git clone https://github.com/Krishnakhokhariya/student-teacher-booking-system 
+### Clone repo
+```bash
+git clone https://github.com/Krishnakhokhariya/student-teacher-booking-system
+```
 
-# Move to project folder
+### Move to project folder
+```bash
 cd student-teacher-appointment
+```
 
-# Install dependencies
+### Install dependencies
+```bash
 npm install
+```
 
-# Firebase Setup
+### Firebase Setup
 - create a firebase project in the Firebase console.
 - Enable: Email/Password Authentications, Cloud Firestore
 - In src/firebase/firebaseConfig.js, configure and initialize Firebase.
 
-# Run development server
+### Run development server
+```bash
 npm run dev
+```
 
-# Build for Production
+### Build for Production
+```bash
 npm run build
+```
+
+---
 
 ## Future Improvements
 - Improve UI
 - allow to select techers from dropdown in BookAppointment.jsx, no need to visit search teacher every time
 
+---
 ## Contact
-Krishna Rajeshbhai Khokhariya
-Email: krishnakhokhariya26@gmail.com
-LinkdIn: www.linkedin.com/in/krishna-khokhariya-078835333/  
+#### Krishna Rajeshbhai Khokhariya  
+
+**Email:**  
+krishnakhokhariya26@gmail.com  
+
+**LinkedIn:**  
+https://www.linkedin.com/in/krishna-khokhariya-078835333/
 
