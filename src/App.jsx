@@ -26,7 +26,7 @@ import TeacherSearch from "./pages/student/TeacherSearch";
 import BookAppointment from "./pages/student/BookAppointment";
 import MyAppointments from "./pages/student/MyAppointments";
 
-import Messages from "./pages/messages";
+import Messages from "./pages/Messages";
 import Notifications from "./pages/AllNotifications";
 import Profile from "./pages/Profile";
 
