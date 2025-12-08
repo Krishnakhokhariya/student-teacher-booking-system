@@ -34,7 +34,7 @@ function App() {
   return (
     <Routes>
       {/* auth */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />      
       {/* public */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
