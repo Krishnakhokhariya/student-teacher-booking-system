@@ -6,7 +6,9 @@ It supports three user roles (Admin, Teacher, Student) and provides scheduling, 
 ---
 
 ## Live Link
-Repository Link: https://github.com/Krishnakhokhariya/student-teacher-booking-system.git
+**Live on:** https://student-teacher-appointme.netlify.app/
+
+**Repository Link:** https://github.com/Krishnakhokhariya/student-teacher-booking-system.git
 
 ---
 
